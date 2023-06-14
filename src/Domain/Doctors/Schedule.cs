@@ -1,8 +1,11 @@
-﻿namespace Medicar.Domain.Doctors;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-public class Schedule :Entity
+namespace Medicar.Domain.Doctors;
+
+public class Schedule : Entity
 {
+    [Column("DoctorId")]
     public Doctor Doctor { get; set; }
     public DateOnly AppointmentDate { get; set; }
-    public List<TimeSpan> AppointmentTimes { get; set; }
+    public TimeSpan AppointmentTimes { get; set; }
 }

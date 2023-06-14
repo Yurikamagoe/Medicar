@@ -31,5 +31,14 @@ public class ApplicationDbContext : DbContext
     {
         configuration.Properties<string>()
             .HaveMaxLength(100);
+
+        configuration.Properties<DateOnly>()
+           .HaveConversion<DateOnlyConverter>()
+           .HaveColumnType("date");
+
+        configuration.Properties<TimeOnly>()
+            .HaveConversion<TimeOnlyConverter>()
+            .HaveColumnType("time");
     }
+
 }
