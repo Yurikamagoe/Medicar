@@ -1,4 +1,8 @@
+using Medicar.Endpoints.Doctors;
+using Medicar.Infra.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionString:MedicarDb"]);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -12,6 +16,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapMethods(DoctorPost.Template, DoctorPost.Methods, DoctorPost.Handle);
 
 app.Run();
 
