@@ -22,9 +22,6 @@ public class SchedulePost
         if(!schedule.IsValid)
             return Results.BadRequest(schedule.Notifications);
 
-        //if (scheduleRequest.AppointmentDate < DateTime.Now)
-        //    return Results.BadRequest("Data informada inválida, por favor tente novamente.");
-
         //if (schedule != null)
         //    return Results.BadRequest("Já existe uma agenda cadastrada para o médico e dia informados.");
 

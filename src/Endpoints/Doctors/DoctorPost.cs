@@ -22,6 +22,9 @@ public class DoctorPost
             UpdateDate = DateTime.Now,
         };
 
+        if (!doctor.IsValid)
+            return Results.BadRequest(doctor.Notifications);
+
         context.Doctors.Add(doctor);
         context.SaveChanges();
 
