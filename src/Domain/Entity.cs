@@ -1,6 +1,8 @@
-﻿namespace Medicar.Domain;
+﻿using Flunt.Notifications;
 
-public abstract class Entity
+namespace Medicar.Domain;
+
+public abstract class Entity : Notifiable<Notification>
 {
     public Entity()
     {
