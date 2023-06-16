@@ -13,7 +13,9 @@ public class DoctorPost
     {
         var doctor = new Doctor
         {
-            Name = doctorRequest.Name
+            Name = doctorRequest.Name,
+            CRM = doctorRequest.CRM,
+            Email = doctorRequest.Email
         };
 
         context.Doctors.Add(doctor);

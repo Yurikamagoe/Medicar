@@ -1,5 +1,9 @@
-﻿using Medicar.Domain.Doctors;
+﻿using Medicar.Domain;
+using Medicar.Domain.Doctors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using System.Reflection.Emit;
+using System.Reflection.Metadata;
 
 namespace Medicar.Infra.Data;
 
@@ -12,19 +16,28 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Doctor>()
-                .Property(p => p.Name).IsRequired();
-        builder.Entity<Doctor>()
-                .Property(p => p.CRM).IsRequired();
-        builder.Entity<Doctor>()
-            .Property(p => p.Email).HasMaxLength(50);
+        builder.Entity<Doctor>(entity =>
+        {
+            entity.Property(p => p.Name).IsRequired();
+            entity.Property(p => p.CRM).IsRequired();
+            entity.Property(p => p.Email).HasMaxLength(50);
+        });
 
-        builder.Entity<Schedule>()
-                .Property(p => p.Doctor).IsRequired();
-        builder.Entity<Schedule>()
-                .Property(p => p.AppointmentDate).IsRequired();
-        builder.Entity<Schedule>()
-                .Property(p => p.AppointmentTimes).IsRequired();
+        builder.Entity<Schedule>(entity =>
+        {
+            entity.Property(e => e.AppointmentDate).IsRequired();
+            entity.Property(p => p.AppointmentTimes).IsRequired();
+            entity.Property(e => e.AppointmentTimes)
+               .HasConversion(
+                   times => string.Join(",", times),
+                   times => times.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList()
+               );
+
+            entity.HasOne(e => e.Doctor)
+                .WithMany()
+                .HasForeignKey(e => e.DoctorId)
+                .IsRequired();
+        });
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder configuration)
@@ -35,10 +48,6 @@ public class ApplicationDbContext : DbContext
         configuration.Properties<DateOnly>()
            .HaveConversion<DateOnlyConverter>()
            .HaveColumnType("date");
-
-        configuration.Properties<TimeOnly>()
-            .HaveConversion<TimeOnlyConverter>()
-            .HaveColumnType("time");
     }
 
 }
