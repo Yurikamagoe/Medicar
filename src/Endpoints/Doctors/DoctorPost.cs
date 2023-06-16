@@ -1,4 +1,5 @@
 ﻿using Medicar.Domain.Doctors;
+using Medicar.Endpoints.DoctorAppointments;
 using Medicar.Infra.Data;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,9 +13,9 @@ public class DoctorPost
 
     public static IResult Action(DoctorRequest doctorRequest, ApplicationDbContext context)
     {
-        //get no médico pelo CRM
-        if (!doctorRequest.CRM.IsNullOrEmpty())
-            throw new Exception("Já existe um médico com o CRM cadastrado.");
+        var existingDoctor = context.Doctors.Where(c => c.CRM == doctorRequest.CRM);
+        if (existingDoctor != null)
+            return Results.BadRequest("Já existe um médico com o CRM cadastrado.");
 
         var doctor = new Doctor(doctorRequest.Name, doctorRequest.CRM, doctorRequest.Email);
 

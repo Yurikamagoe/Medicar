@@ -13,7 +13,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
 
-    public DbSet<Schedule> DoctorAppointments { get; set; }
+    public DbSet<DoctorAppointment> DoctorAppointments { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

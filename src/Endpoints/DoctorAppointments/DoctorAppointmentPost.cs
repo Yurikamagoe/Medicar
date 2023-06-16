@@ -1,5 +1,6 @@
 ﻿using Medicar.Domain.Doctors;
 using Medicar.Endpoints.Doctors;
+using Medicar.Endpoints.Schedules;
 using Medicar.Infra.Data;
 
 namespace Medicar.Endpoints.DoctorAppointments;
@@ -12,12 +13,13 @@ public class DoctorAppointmentPost
 
     public static IResult Action(DoctorAppointmentRequest doctorAppointmentRequest, ApplicationDbContext context)
     {
-        //get na consulta pela data
-        if (doctorAppointmentRequest.ScheduleId != null)
-            throw new Exception("Já existe uma consulta marcada na data informada.");
+        var existingDoctorAppointment = context.DoctorAppointments.Where(c => c.AppointmentTime == doctorAppointmentRequest.AppointmentTime);
+        if (existingDoctorAppointment != null)
+            return Results.BadRequest("Já existe um paciente com consulta marcada no horário informado. Por favor, tente novamente!");
 
-        //get na agenda pelo Id
-        var schedule = new Schedule(Schedule, DateTime.Now, ["kk","123"].ToList() );
+        Schedule schedule = context.Schedules.Where(c => c.Id == doctorAppointmentRequest.ScheduleId).Last();
+        if (schedule == null)
+            return Results.BadRequest("Não existe agenda cadastrada com Id informado. Tente novamente!");
 
         var doctorAppointment = new DoctorAppointment(schedule, schedule.AppointmentDate, doctorAppointmentRequest.AppointmentTime);
 
