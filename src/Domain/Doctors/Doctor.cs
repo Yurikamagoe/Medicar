@@ -16,5 +16,12 @@ public class Doctor : Entity
             .IsNotNull(email, "Email", "Email do médico é obrigatório.")
             .IsEmail(email,"Email", "Email do médico inválido.");
         AddNotifications(contract);
+
+
+        Name = name;
+        CRM = crm;
+        Email = email;
+        CreatedDate = DateTime.Now;
+        UpdateDate = DateTime.Now;
     }
 }

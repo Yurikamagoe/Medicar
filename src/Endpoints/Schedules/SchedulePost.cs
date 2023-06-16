@@ -6,18 +6,14 @@ namespace Medicar.Endpoints.Schedules;
 
 public class SchedulePost
 {
-    public static string Template => "/schedule";
+    public static string Template => "/agenda";
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
     public static Delegate Handle => Action;
 
     public static IResult Action(ScheduleRequest scheduleRequest, ApplicationDbContext context)
     {
         //get na agenda pela data
-        var schedule = new Schedule(scheduleRequest.Doctor, scheduleRequest.AppointmentDate, scheduleRequest.AppointmentTimes)
-        {
-            CreatedDate = DateTime.Now,
-            UpdateDate = DateTime.Now,
-        };
+        var schedule = new Schedule(scheduleRequest.Doctor, scheduleRequest.AppointmentDate, scheduleRequest.AppointmentTimes);
 
         if(!schedule.IsValid)
             return Results.BadRequest(schedule.Notifications);

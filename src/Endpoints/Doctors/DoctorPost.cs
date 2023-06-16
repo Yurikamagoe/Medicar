@@ -6,7 +6,7 @@ namespace Medicar.Endpoints.Doctors;
 
 public class DoctorPost
 {
-    public static string Template => "/doctors";
+    public static string Template => "/medico";
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
     public static Delegate Handle => Action;
 
@@ -16,11 +16,7 @@ public class DoctorPost
         if (!doctorRequest.CRM.IsNullOrEmpty())
             throw new Exception("Já existe um médico com o CRM cadastrado.");
 
-        var doctor = new Doctor(doctorRequest.Name, doctorRequest.CRM, doctorRequest.Email)
-        {
-            CreatedDate = DateTime.Now,
-            UpdateDate = DateTime.Now,
-        };
+        var doctor = new Doctor(doctorRequest.Name, doctorRequest.CRM, doctorRequest.Email);
 
         if (!doctor.IsValid)
             return Results.BadRequest(doctor.Notifications);

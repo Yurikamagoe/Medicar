@@ -1,4 +1,5 @@
-﻿using Medicar.Domain;
+﻿using Flunt.Notifications;
+using Medicar.Domain;
 using Medicar.Domain.Doctors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -12,10 +13,13 @@ public class ApplicationDbContext : DbContext
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
 
+    public DbSet<Schedule> DoctorAppointments { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Ignore<Notification>();
         builder.Entity<Doctor>(entity =>
         {
             entity.Property(p => p.Name).IsRequired();
@@ -32,10 +36,19 @@ public class ApplicationDbContext : DbContext
                    times => string.Join(",", times),
                    times => times.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList()
                );
-
             entity.HasOne(e => e.Doctor)
                 .WithMany()
                 .HasForeignKey(e => e.DoctorId)
+                .IsRequired();
+        });
+
+        builder.Entity<DoctorAppointment>(entity =>
+        {
+            entity.Property(e => e.AppointmentDate).IsRequired();
+            entity.Property(p => p.AppointmentTime).IsRequired();
+            entity.HasOne(e => e.Schedule)
+                .WithMany()
+                .HasForeignKey(e => e.ScheduleId)
                 .IsRequired();
         });
     }
