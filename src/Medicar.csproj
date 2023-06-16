@@ -24,8 +24,4 @@
     <None Include="C:\CURSOS\Medicar\Medicar\src\.editorconfig" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Endpoints\Schedules\" />
-  </ItemGroup>
-
 </Project>

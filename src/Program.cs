@@ -1,4 +1,5 @@
 using Medicar.Endpoints.Doctors;
+using Medicar.Endpoints.Schedules;
 using Medicar.Infra.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapMethods(DoctorPost.Template, DoctorPost.Methods, DoctorPost.Handle);
+app.MapMethods(SchedulePost.Template, SchedulePost.Methods, SchedulePost.Handle);
 
 app.Run();
 
