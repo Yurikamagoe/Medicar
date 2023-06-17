@@ -1,5 +1,6 @@
 ﻿using Medicar.Domain.Doctors;
 using Medicar.Infra.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 namespace Medicar.Endpoints.DoctorAppointments;
@@ -10,6 +11,7 @@ public class DoctorAppointmentsGetAll
     public static string[] Methods => new string[] { HttpMethod.Get.ToString() };
     public static Delegate Handle => Action;
 
+    [Authorize]
     public static IResult Action(ApplicationDbContext context)
     {
         var doctorAppointments = context.DoctorAppointments

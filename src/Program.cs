@@ -2,15 +2,40 @@ using Medicar.Domain.Doctors;
 using Medicar.Endpoints.DoctorAppointments;
 using Medicar.Endpoints.Doctors;
 using Medicar.Endpoints.Schedules;
+using Medicar.Endpoints.Security;
 using Medicar.Infra.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionString:MedicarDb"]);
+builder.Services.AddSqlServer<ApplicationDbContext>(
+builder.Configuration["ConnectionString:MedicarDb"]);
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateActor = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["JwtBearerTokenSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtBearerTokenSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]))
+    };
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {
@@ -25,6 +50,7 @@ app.MapMethods(SchedulePost.Template, SchedulePost.Methods, SchedulePost.Handle)
 app.MapMethods(DoctorAppointmentPost.Template, DoctorAppointmentPost.Methods, DoctorAppointmentPost.Handle);
 app.MapMethods(DoctorAppointmentsGetAll.Template, DoctorAppointmentsGetAll.Methods, DoctorAppointmentsGetAll.Handle);
 app.MapMethods(DoctorAppointmentDelete.Template, DoctorAppointmentDelete.Methods, DoctorAppointmentDelete.Handle);
+app.MapMethods(TokenPost.Template, TokenPost.Methods, TokenPost.Handle);
 
 app.Run();
 
