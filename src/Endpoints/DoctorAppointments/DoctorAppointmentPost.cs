@@ -7,7 +7,7 @@ namespace Medicar.Endpoints.DoctorAppointments;
 
 public class DoctorAppointmentPost
 {
-    public static string Template => "/consulta";
+    public static string Template => "/consultas";
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
     public static Delegate Handle => Action;
 
