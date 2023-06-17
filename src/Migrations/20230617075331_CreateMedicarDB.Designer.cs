@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medicar.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230616140922_AddDoctor")]
-    partial class AddDoctor
+    [Migration("20230617075331_CreateMedicarDB")]
+    partial class CreateMedicarDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,36 @@ namespace Medicar.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("Medicar.Domain.Doctors.DoctorAppointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppointmentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AppointmentTime")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("DoctorAppointments");
+                });
+
             modelBuilder.Entity("Medicar.Domain.Doctors.Schedule", b =>
                 {
                     b.Property<Guid>("Id")
@@ -84,6 +114,17 @@ namespace Medicar.Migrations
                     b.HasIndex("DoctorId");
 
                     b.ToTable("Schedules");
+                });
+
+            modelBuilder.Entity("Medicar.Domain.Doctors.DoctorAppointment", b =>
+                {
+                    b.HasOne("Medicar.Domain.Doctors.Schedule", "Schedule")
+                        .WithMany()
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("Medicar.Domain.Doctors.Schedule", b =>
