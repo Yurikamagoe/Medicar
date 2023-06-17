@@ -28,4 +28,6 @@ public class Schedule : Entity
         CreatedDate = DateTime.Now;
         UpdateDate = DateTime.Now;
     }
+
+    public Schedule() { }
 }

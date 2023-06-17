@@ -22,7 +22,6 @@ public class SchedulePost
         if(!schedule.IsValid)
             return Results.BadRequest(schedule.Notifications);
 
-        
         ////remover horario cadastrado da lista de horarios disponiveis -- somente na criação da agenda
         //List<string> appointmentTimes = new List<string>();
         //appointmentTimes.RemoveAll(x => x == doctorRequest.)

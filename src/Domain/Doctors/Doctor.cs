@@ -24,4 +24,6 @@ public class Doctor : Entity
         CreatedDate = DateTime.Now;
         UpdateDate = DateTime.Now;
     }
+
+    public Doctor() { }
 }

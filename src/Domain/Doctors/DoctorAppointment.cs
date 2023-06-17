@@ -29,4 +29,6 @@ public class DoctorAppointment : Entity
         CreatedDate = DateTime.Now;
         UpdateDate = DateTime.Now;
     }
+
+    public DoctorAppointment() { }
 }
