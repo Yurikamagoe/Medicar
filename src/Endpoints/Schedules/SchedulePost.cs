@@ -1,5 +1,6 @@
 ﻿using Medicar.Domain.Doctors;
 using Medicar.Infra.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using System.Numerics;
 
@@ -11,6 +12,7 @@ public class SchedulePost
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
     public static Delegate Handle => Action;
 
+    [Authorize]
     public static IResult Action(ScheduleRequest scheduleRequest, ApplicationDbContext context)
     {
         var existingSchedule = context.Schedules.Where(c => c.AppointmentDate == scheduleRequest.AppointmentDate).FirstOrDefault();
