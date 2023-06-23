@@ -1,7 +1,6 @@
-﻿using Medicar.Domain.Doctors;
+﻿using Medicar.Domain.Responses;
 using Medicar.Infra.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 
 namespace Medicar.Endpoints.DoctorAppointments;
 
