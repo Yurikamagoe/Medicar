@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "29ac6ef8-5518-42eb-954d-76a5d4bdcb52",
+		"name": "Medicar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Marcar Consulta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"scheduleId\": \"08F0B21E-2972-4333-A816-3A2C39406390\",\r\n  \"appointmentTime\": \"[08:00]\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7238/consultas",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Consultas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmlAZW1haWwuY29tIiwibmJmIjoxNjg3NTA4ODg1LCJleHAiOjE2ODc1MTI0ODUsImlhdCI6MTY4NzUwODg4NSwiaXNzIjoiTWVkaWNhciIsImF1ZCI6IkF1ZGllbmNlIn0.XJ23fF3aRQFXivZzF8A3hmHPkPzcVSaFVo8tbNJUnAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7238/consultas",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"consultas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Desmarcar consulta",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmlAZW1haWwuY29tIiwibmJmIjoxNjg3NTA4ODg1LCJleHAiOjE2ODc1MTI0ODUsImlhdCI6MTY4NzUwODg4NSwiaXNzIjoiTWVkaWNhciIsImF1ZCI6IkF1ZGllbmNlIn0.XJ23fF3aRQFXivZzF8A3hmHPkPzcVSaFVo8tbNJUnAE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7238/consultas/{dac43171-9e9d-4ee1-9441-c90af27346c0}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"consultas",
+								"{dac43171-9e9d-4ee1-9441-c90af27346c0}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Agenda",
+			"item": [
+				{
+					"name": "Criar Agenda",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"doctor\": {\r\n    \"id\": \"782c3187-3cc4-4621-a178-e8af83d3a278\",\r\n    \"name\": \"Yuri\",\r\n    \"crm\": \"123\",\r\n    \"email\": \"yuri@email.com\"\r\n  },\r\n  \"appointmentDate\": \"2023-06-23\",\r\n  \"appointmentTimes\": [\r\n    \"[08:00]\",\r\n    \"[09:00]\",\r\n    \"[12:00\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7238/agenda",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"agenda"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Médico",
+			"item": [
+				{
+					"name": "Criar médico",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inl1cmlAZW1haWwuY29tIiwibmJmIjoxNjg3NTA3NTIwLCJleHAiOjE2ODc1MTExMjAsImlhdCI6MTY4NzUwNzUyMCwiaXNzIjoiTWVkaWNhciIsImF1ZCI6IkF1ZGllbmNlIn0.N0cGanumJWAvkiar3VIl776yPdPDXMQ3hhogdKGnv9k",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Yuri Kamagoe\",\r\n  \"crm\": \"123\",\r\n  \"email\": \"yuri@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7238/medico",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"medico"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Criar usuário",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"yuri@email.com\",\r\n  \"password\": \"yuri123\",\r\n  \"name\": \"Yuri\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7238/user",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Token",
+			"item": [
+				{
+					"name": "Gerar Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"yuri@email.com\",\r\n  \"password\": \"yuri123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7238/token",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7238",
+							"path": [
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
