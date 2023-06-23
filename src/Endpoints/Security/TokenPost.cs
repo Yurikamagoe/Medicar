@@ -18,7 +18,6 @@ public class TokenPost
     public static IResult Action(LoginRequest loginRequest, IConfiguration configuration, UserManager<IdentityUser> userManager)
     {
         var user = userManager.FindByEmailAsync(loginRequest.Email).Result;
-
         if (user == null)
             Results.BadRequest();
 
