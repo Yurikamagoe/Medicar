@@ -13,7 +13,7 @@ public class SchedulePost
 
     public static IResult Action(ScheduleRequest scheduleRequest, ApplicationDbContext context)
     {
-        var existingSchedule = context.Schedules.Where(c => c.AppointmentDate == scheduleRequest.AppointmentDate);
+        var existingSchedule = context.Schedules.Where(c => c.AppointmentDate == scheduleRequest.AppointmentDate).FirstOrDefault();
         if (existingSchedule != null)
             return Results.BadRequest("Já existe uma agenda criada para a data informada");
 

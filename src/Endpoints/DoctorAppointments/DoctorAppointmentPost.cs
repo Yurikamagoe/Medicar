@@ -15,19 +15,16 @@ public class DoctorAppointmentPost
     [Authorize]
     public static IResult Action(DoctorAppointmentRequest doctorAppointmentRequest, ApplicationDbContext context)
     {
-        var existingDoctorAppointment = context.DoctorAppointments.Where(c => c.AppointmentTime == doctorAppointmentRequest.AppointmentTime);
+        var existingDoctorAppointment = context.DoctorAppointments.Where(c => c.AppointmentTime == doctorAppointmentRequest.AppointmentTime).FirstOrDefault();
         if (existingDoctorAppointment != null)
             return Results.BadRequest("Já existe um paciente com consulta marcada no horário informado. Por favor, tente novamente!");
 
-        Schedule schedule = context.Schedules.Where(c => c.Id == doctorAppointmentRequest.ScheduleId).Last();
+        Schedule schedule = context.Schedules.Where(c => c.Id == doctorAppointmentRequest.ScheduleId).FirstOrDefault();
         if (schedule == null)
             return Results.BadRequest("Não existe agenda cadastrada com Id informado. Tente novamente!");
 
-
-        ////remover horario cadastrado da lista de horarios disponiveis -- somente na criação da agenda
-        //List<string> appointmentTimes = new List<string>();
-        //appointmentTimes.RemoveAll(x => x == doctorRequest.)
-
+        schedule.AppointmentTimes.RemoveAll(c => c == doctorAppointmentRequest.AppointmentTime);
+        context.Schedules.Update(schedule);
         var doctorAppointment = new DoctorAppointment(schedule, schedule.AppointmentDate, doctorAppointmentRequest.AppointmentTime);
 
         if (!doctorAppointment.IsValid)

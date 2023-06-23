@@ -37,6 +37,6 @@ public class DoctorAppointmentsGetAll
             AppointmentTime = c.DoctorAppointment.AppointmentTime,
             Doctor = c.Doctor
         });
-        return Results.Ok(doctorAppointments);
+        return Results.Ok(response);
     }
 }

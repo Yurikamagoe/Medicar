@@ -15,7 +15,7 @@ public class DoctorPost
     [Authorize]
     public static IResult Action(DoctorRequest doctorRequest, ApplicationDbContext context)
     {
-        var existingDoctor = context.Doctors.Where(c => c.CRM == doctorRequest.CRM);
+        var existingDoctor = context.Doctors.Where(c => c.CRM == doctorRequest.CRM).FirstOrDefault();
         if (existingDoctor != null)
             return Results.BadRequest("Já existe um médico com o CRM cadastrado.");
 

@@ -22,7 +22,7 @@ public class Schedule : Entity
             .IsNotNull(appointimentTimes, "AppointmentTimes", "Os horários de atendimento são obrigatórios.");
         AddNotifications(contract);
 
-        Doctor = doctor;
+        DoctorId = doctor.Id;
         AppointmentDate = appointimentDate;
         AppointmentTimes = appointimentTimes;
         CreatedDate = DateTime.Now;
