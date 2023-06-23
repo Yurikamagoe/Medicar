@@ -5,12 +5,15 @@ using Medicar.Endpoints.Schedules;
 using Medicar.Endpoints.Security;
 using Medicar.Infra.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlServer<ApplicationDbContext>(
-builder.Configuration["ConnectionString:MedicarDb"]);
+builder.Configuration["ConnectionStrings:DefaultConnection"]);
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(x =>
 {

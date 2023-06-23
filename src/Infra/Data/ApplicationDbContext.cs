@@ -1,6 +1,8 @@
 ﻿using Flunt.Notifications;
 using Medicar.Domain;
 using Medicar.Domain.Doctors;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.Reflection.Emit;
@@ -8,7 +10,7 @@ using System.Reflection.Metadata;
 
 namespace Medicar.Infra.Data;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Schedule> Schedules { get; set; }
@@ -19,6 +21,8 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder);
+
         builder.Ignore<Notification>();
         builder.Entity<Doctor>(entity =>
         {
