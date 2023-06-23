@@ -1,9 +1,9 @@
 ﻿using Medicar.Domain;
 using Medicar.Domain.Doctors;
 
-namespace Medicar.Endpoints.DoctorAppointments;
+namespace Medicar.Domain.Responses;
 
-public class DoctorAppointmentsResponse 
+public class DoctorAppointmentsResponse
 {
     public Guid DoctorAppointmentId { get; set; }
     public DateTime AppointmentDate { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Medicar.Domain.Doctors;
+using Medicar.Domain.Requests;
 using Medicar.Endpoints.DoctorAppointments;
 using Medicar.Infra.Data;
 using Microsoft.AspNetCore.Authorization;

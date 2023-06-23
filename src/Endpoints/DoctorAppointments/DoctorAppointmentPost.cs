@@ -1,4 +1,5 @@
 ﻿using Medicar.Domain.Doctors;
+using Medicar.Domain.Requests;
 using Medicar.Endpoints.Doctors;
 using Medicar.Endpoints.Schedules;
 using Medicar.Infra.Data;

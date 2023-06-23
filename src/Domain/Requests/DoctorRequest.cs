@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Medicar.Endpoints.Doctors;
+namespace Medicar.Domain.Requests;
 
 public class DoctorRequest
 {

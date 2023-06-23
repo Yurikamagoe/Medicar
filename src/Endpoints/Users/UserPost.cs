@@ -1,4 +1,5 @@
-﻿using Medicar.Util;
+﻿using Medicar.Domain.Requests;
+using Medicar.Util;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
