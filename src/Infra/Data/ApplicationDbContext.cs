@@ -1,6 +1,7 @@
 ﻿using Flunt.Notifications;
 using Medicar.Domain;
 using Medicar.Domain.Doctors;
+using Medicar.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

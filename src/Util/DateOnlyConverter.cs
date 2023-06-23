@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Medicar.Infra.Data;
+namespace Medicar.Util;
 
 public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
 {
